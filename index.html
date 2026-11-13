@@ -842,24 +842,71 @@
       .hr .t{flex:1;min-width:0;overflow-wrap:anywhere}
       .hr small{color:var(--muted)}
       @media (max-width:600px){#rdOut{grid-template-columns:1fr}}
+      /* ===== v2: الرئيسية + شريط علوي + رسوم ===== */
+      .topbar{position:fixed;top:12px;inset-inline-end:12px;z-index:40;display:flex;gap:8px}
+      .tb{font:inherit;font-weight:600;min-width:44px;height:44px;padding:0 12px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--text);cursor:pointer;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);font-size:1rem}
+      .tb:hover{border-color:var(--pylon)}
+      :root[data-theme="dark"] .tb:hover{border-color:var(--shine)}
+      .pg{padding-top:64px}
+      .ph{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+      .ph h2{margin:0;font-size:1.4rem}
+      #pgCreate .ph h2{font-size:1.15rem}
+      .ph .xb{font:inherit;font-weight:600;font-size:.9rem;padding:8px 16px;border-radius:999px;border:1.5px solid var(--line);background:var(--soft);color:var(--text);cursor:pointer;white-space:nowrap}
+      .ph .xb:hover{border-color:var(--flower);color:var(--flower)}
+      #pgLib .ph .xb{background:var(--lcd);color:var(--ltx);border-color:var(--lbd)}
+      #pgHome .hero{padding-top:30px}
+      #pgHome .cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+      #pgHome .cta .up{width:auto;margin:0;padding:12px 26px}
+      #pgHome .cta .up.sec{background:transparent;color:var(--text);border:1.5px solid var(--line)}
+      .feats{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin:8px 0 26px}
+      .feat{font:inherit;text-align:start;display:flex;flex-direction:column;gap:6px;padding:20px;border-radius:18px;border:1px solid var(--line);background:var(--card);color:var(--text);cursor:pointer;box-shadow:0 18px 40px -30px var(--shadow);transition:transform .15s,border-color .15s}
+      .feat:hover{transform:translateY(-3px);border-color:var(--pylon)}
+      :root[data-theme="dark"] .feat:hover{border-color:var(--shine)}
+      .feat .ic{font-size:1.8rem;line-height:1}
+      .feat b{font-size:1.05rem}
+      .feat span.d{color:var(--muted);font-size:.9rem}
+      #hsLock{text-align:center;padding:34px 12px;border:1.5px dashed var(--line);border-radius:18px;background:var(--soft)}
+      #hsLock .up{width:auto;margin:14px 0 0;padding:11px 26px}
+      #hsLock[hidden],#hsData[hidden]{display:none}
+      .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:0 0 26px}
+      .ch{padding:18px;border-radius:18px;border:1px solid var(--line);background:var(--soft);min-width:0}
+      .ch h3{margin:0 0 14px!important;font-size:1rem!important}
+      .ch .none{color:var(--muted);font-size:.9rem;text-align:center;padding:30px 0}
+      .dn{display:flex;align-items:center;gap:16px;flex-wrap:wrap;justify-content:center}
+      .dn svg{width:150px;height:150px;flex:none;transform:rotate(-90deg)}
+      :root[dir="rtl"] .dn svg{transform:rotate(-90deg) scaleY(-1)}
+      .dn .ctr{font-size:26px;font-weight:700;fill:var(--text);transform:rotate(90deg);transform-origin:60px 60px}
+      :root[dir="rtl"] .dn .ctr{transform:scaleY(-1) rotate(90deg)}
+      .lg{display:grid;gap:6px;font-size:.88rem}
+      .lg i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:7px}
+      .hb{display:grid;gap:10px}
+      .hb .r{display:grid;gap:4px;font-size:.85rem}
+      .hb .r .l{display:flex;justify-content:space-between;gap:8px}
+      .hb .r .l span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+      .hb .tr{height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+      .hb .tr div{height:100%;border-radius:99px;background:linear-gradient(90deg,var(--pylon),var(--peri))}
+      .vb{display:flex;align-items:flex-end;gap:10px;height:160px;padding-top:8px}
+      .vb .c{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:5px;font-size:.78rem;min-width:0}
+      .vb .c div{width:100%;max-width:38px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--shine),var(--flower));min-height:3px}
+      .vb .c small{color:var(--muted)}
     </style>
   </head>
   <body>
     <canvas id="fx" aria-hidden="true"></canvas>
     <button type="button" id="menuBtn" aria-label="Menu">☰</button>
     <div id="scrim"></div>
+    <div class="topbar"><button type="button" class="tb" id="langBtn"></button><button type="button" class="tb" id="themeBtn"></button></div>
     <div class="shell">
     <aside class="side" id="side">
       <div class="brand"><span class="acc">الحليوة</span> QR</div>
-      <button type="button" class="nv" data-p="home"><span>🏠</span><span data-ar="الرئيسية" data-en="Home"></span><span class="lk2">🔒</span></button>
-      <button type="button" class="nv on" data-p="create"><span>✨</span><span data-ar="إنشاء كود" data-en="Create code"></span></button>
+      <button type="button" class="nv on" data-p="home"><span>🏠</span><span data-ar="الرئيسية" data-en="Home"></span></button>
+      <button type="button" class="nv" data-p="create"><span>✨</span><span data-ar="إنشاء كود" data-en="Create code"></span></button>
       <button type="button" class="nv" data-p="lib"><span>📚</span><span data-ar="مكتبتي" data-en="My codes"></span><span class="lk2">🔒</span></button>
       <button type="button" class="nv" data-p="read"><span>🔍</span><span data-ar="قراءة كود" data-en="Read code"></span></button>
       <button type="button" class="nv" data-p="drive"><span>☁</span><span data-ar="Drive والشيت" data-en="Drive &amp; Sheet"></span><span class="lk2">🔒</span></button>
-      <button type="button" class="nv" data-p="set"><span>⚙</span><span data-ar="الإعدادات" data-en="Settings"></span></button>
     </aside>
     <div class="content">
-    <section class="page on" id="pgCreate">
+    <section class="page" id="pgCreate">
     <header class="hero">
       <img
         class="logo"
@@ -887,7 +934,7 @@
       <div class="grid">
         <div class="stack">
           <section class="card">
-            <h2><b class="n">1</b> أضف المحتوى</h2>
+            <div class="ph"><h2><b class="n">1</b> <span data-ar="أضف المحتوى" data-en="Add content"></span></h2><button type="button" class="xb" id="clrBtn" data-ar="🧹 تفريغ الحقول" data-en="🧹 Clear fields"></button></div>
             <div id="fields"></div>
             <label for="qname">اسم الكيواركود (اختياري)</label>
             <input
@@ -1055,19 +1102,47 @@
       </section>
     </main>
     </section>
-    <section class="page" id="pgHome"><div class="pg"><div class="card">
-      <h2 data-ar="🏠 الرئيسية" data-en="🏠 Home"></h2>
-      <div class="stats">
-        <div class="st"><b id="hsTotal">0</b><span data-ar="إجمالي الأكواد" data-en="Total codes"></span></div>
-        <div class="st"><b id="hsDyn">0</b><span data-ar="أكواد ديناميكية" data-en="Dynamic codes"></span></div>
-        <div class="st"><b id="hsScans">0</b><span data-ar="إجمالي مرات المسح" data-en="Total scans"></span></div>
-        <div class="st"><b id="hsTop" class="sm">—</b><span id="hsTopN"></span></div>
+    <section class="page on" id="pgHome"><div class="pg">
+      <header class="hero">
+        <img class="logo" id="hmLogo" alt="Yasser Elhelewa logo" width="112" height="112" />
+        <h1><span class="acc" data-ar="الحليوة" data-en="Elhelewa"></span> <span data-ar="لتوليد الكيواركود" data-en="QR Code Generator"></span></h1>
+        <p class="tag" data-ar="أنشئ كيواركود احترافي مجاناً" data-en="Create a professional QR code for free"></p>
+        <p class="sub" data-ar="رابط، صورة، فيديو، PDF، واتساب، سوشيال ميديا وأكتر. التوليد بيتم في متصفحك وبدون حد." data-en="Links, images, video, PDF, WhatsApp, social media and more. Generated in your browser, with no limits."></p>
+        <div class="cta">
+          <button type="button" class="up" data-go="create" data-ar="✨ ابدأ إنشاء كود" data-en="✨ Create a code"></button>
+          <button type="button" class="up sec" data-go="read" data-ar="🔍 اقرأ كود" data-en="🔍 Read a code"></button>
+        </div>
+      </header>
+      <div class="feats">
+        <button type="button" class="feat" data-go="create"><span class="ic">🎨</span><b data-ar="تصميم على مزاجك" data-en="Designed your way"></b><span class="d" data-ar="ألوان وأشكال نقاط وإطارات ولوجو بتاعك." data-en="Colors, dot styles, frames and your own logo."></span></button>
+        <button type="button" class="feat" data-go="create"><span class="ic">🔁</span><b data-ar="كود ديناميكي" data-en="Dynamic codes"></b><span class="d" data-ar="غيّر الرابط بعد الطباعة وتابع عدد مرات المسح." data-en="Change the link after printing and track scans."></span></button>
+        <button type="button" class="feat" data-go="read"><span class="ic">🛡</span><b data-ar="قراءة وفحص" data-en="Read &amp; check"></b><span class="d" data-ar="اقرأ أي كود واعرف لو الرابط مشبوه." data-en="Decode any code and spot suspicious links."></span></button>
       </div>
-      <h3 data-ar="أحدث 5 أكواد" data-en="Latest 5 codes"></h3>
-      <div id="hsRecent"></div>
-    </div></div></section>
+      <div class="card">
+        <div class="ph"><h2 data-ar="📊 لوحة الأرقام والرسوم" data-en="📊 Dashboard & charts"></h2></div>
+        <div id="hsLock" hidden>
+          <p class="hint" data-ar="الإحصائيات والرسوم البيانية محمية بكلمة السر." data-en="Stats and charts are password-protected."></p>
+          <button type="button" class="up" id="hsUnlock" data-ar="🔒 افتح اللوحة" data-en="🔒 Unlock dashboard"></button>
+        </div>
+        <div id="hsData" hidden>
+          <div class="stats">
+            <div class="st"><b id="hsTotal">0</b><span data-ar="إجمالي الأكواد" data-en="Total codes"></span></div>
+            <div class="st"><b id="hsDyn">0</b><span data-ar="أكواد ديناميكية" data-en="Dynamic codes"></span></div>
+            <div class="st"><b id="hsScans">0</b><span data-ar="إجمالي مرات المسح" data-en="Total scans"></span></div>
+            <div class="st"><b id="hsTop" class="sm">—</b><span id="hsTopN"></span></div>
+          </div>
+          <div class="charts">
+            <div class="ch"><h3 data-ar="توزيع الأكواد حسب النوع" data-en="Codes by type"></h3><div id="chType"></div></div>
+            <div class="ch"><h3 data-ar="الأكتر مسحًا" data-en="Most scanned"></h3><div id="chScans"></div></div>
+            <div class="ch"><h3 data-ar="أكواد اتعملت آخر 6 شهور" data-en="Codes created, last 6 months"></h3><div id="chMonth"></div></div>
+          </div>
+          <h3 data-ar="أحدث 5 أكواد" data-en="Latest 5 codes"></h3>
+          <div id="hsRecent"></div>
+        </div>
+      </div>
+    </div></section>
     <section class="page" id="pgLib"><div class="pg"><div class="card">
-      <h2 data-ar="📚 مكتبتي" data-en="📚 My QR codes"></h2>
+      <div class="ph"><h2 data-ar="📚 مكتبتي" data-en="📚 My QR codes"></h2><button type="button" class="xb" id="libClose" data-ar="✕ إغلاق" data-en="✕ Close"></button></div>
       <p class="hint" id="libN"></p>
       <div class="lt">
         <input id="libS" type="search" dir="auto" />
@@ -1104,11 +1179,7 @@
         <div class="card"><h2 data-ar="📊 سجل الشيت" data-en="📊 Sheet log"></h2><p class="hint" data-ar="سجل الأكواد وعدد مرات المسح." data-en="Code log and scan counts."></p><button type="button" class="up" id="shGo" data-ar="افتح الشيت" data-en="Open Sheet"></button></div>
       </div>
     </div></div></section>
-    <section class="page" id="pgSet"><div class="pg"><div class="card">
-      <h2 data-ar="⚙ الإعدادات" data-en="⚙ Settings"></h2>
-      <div class="setrow"><b data-ar="اللغة" data-en="Language"></b><button type="button" class="theme" id="langBtn"></button></div>
-      <div class="setrow"><b data-ar="المظهر" data-en="Theme"></b><button type="button" class="theme" id="themeBtn"></button></div>
-    </div></div></section>
+    
     </div>
     </div>
     <dialog id="pw">
@@ -2178,7 +2249,7 @@
               /\S/.test(n.nodeValue) &&
               !/^(SCRIPT|STYLE)$/.test(n.parentNode.nodeName) &&
               !n.parentElement.closest(
-                "#tabs,#fields,.tools,.msg,#qr,.cap,#pw,#pgHome,#pgLib,#pgRead,#pgDrive,#pgSet,#side,[data-ar]",
+                "#tabs,#fields,.tools,.msg,#qr,.cap,#pw,#pgHome,#pgLib,#pgRead,#pgDrive,#side,[data-ar]",
               )
                 ? 1
                 : 3,
@@ -2214,8 +2285,10 @@
         const ft = $("ftxt");
         if (ft.value === L("Scan me", "امسحني"))
           ft.value = L("امسحني", "Scan me");
-        $("langBtn").textContent = L("🌐 English", "🌐 العربية");
+        $("langBtn").textContent = L("🌐 EN", "🌐 ع");
+        $("langBtn").title = $("langBtn").ariaLabel = L("Switch to English", "التبديل للعربية");
         themeLabel();
+        renderHome();
         libLabels();
         const keep = {};
         document.querySelectorAll("#fields [id^=f_]").forEach((e) => {
@@ -2232,9 +2305,10 @@
       const root = document.documentElement;
       function themeLabel() {
         const d = root.dataset.theme === "dark";
-        $("themeBtn").textContent = d
-          ? L("☀ الوضع الفاتح", "☀ Light mode")
-          : L("☾ الوضع الداكن", "☾ Dark mode");
+        $("themeBtn").textContent = d ? "☀" : "☾";
+        $("themeBtn").title = $("themeBtn").ariaLabel = d
+          ? L("الوضع الفاتح", "Light mode")
+          : L("الوضع الداكن", "Dark mode");
         $("themeBtn").setAttribute("aria-pressed", d);
       }
       $("themeBtn").onclick = () => {
@@ -2244,6 +2318,7 @@
           localStorage.setItem("theme", t);
         } catch (e) {}
         themeLabel();
+        renderHome();
       };
       $("langBtn").onclick = () => {
         lang = lang === "en" ? "ar" : "en";
@@ -2738,7 +2813,45 @@
       $("pwI").addEventListener("keydown", (e) => {
         if (e.key === "Enter") pwTry();
       });
+      const CPAL = ["#00a8ff", "#9c88ff", "#fbc531", "#44bd32", "#e84118", "#7f8fa6"];
+      function chDonut(box, data, total) {
+        const R = 46, C = 2 * Math.PI * R;
+        let off = 0, arcs = "";
+        data.forEach((d, i) => {
+          const len = (d.v / total) * C;
+          arcs += `<circle cx="60" cy="60" r="${R}" fill="none" stroke="${CPAL[i % CPAL.length]}" stroke-width="20" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-off}"/>`;
+          off += len;
+        });
+        const lg = data.map((d, i) => `<div><i style="background:${CPAL[i % CPAL.length]}"></i>${d.l} · <b>${d.v}</b></div>`).join("");
+        box.innerHTML = `<div class="dn"><svg viewBox="0 0 120 120" role="img"><circle cx="60" cy="60" r="${R}" fill="none" stroke="var(--line)" stroke-width="20"/>${arcs}<text class="ctr" x="60" y="68" text-anchor="middle">${total}</text></svg><div class="lg">${lg}</div></div>`;
+      }
+      function chRender() {
+        const a = gl(), dy = a.filter((x) => x.dyn);
+        const none = L("لسه مفيش بيانات.", "No data yet.");
+        // 1) حسب النوع
+        const cnt = {};
+        a.forEach((x) => { const n = tr(TYPES[x.type] ? TYPES[x.type].name : x.type); cnt[n] = (cnt[n] || 0) + 1; });
+        let ty = Object.entries(cnt).sort((x, y) => y[1] - x[1]).map(([l, v]) => ({ l, v }));
+        if (ty.length > 6) { const rest = ty.slice(5).reduce((n, d) => n + d.v, 0); ty = ty.slice(0, 5).concat({ l: L("أخرى", "Other"), v: rest }); }
+        if (a.length) chDonut($("chType"), ty, a.length); else $("chType").innerHTML = `<p class="none">${none}</p>`;
+        // 2) الأكتر مسحًا
+        const top = dy.map((x) => ({ n: x.name || tr(TYPES[x.type].name), v: +HITS[x.dyn] || 0 })).filter((x) => x.v > 0).sort((x, y) => y.v - x.v).slice(0, 5);
+        if (top.length) {
+          const mx = top[0].v;
+          $("chScans").innerHTML = '<div class="hb">' + top.map((x) => `<div class="r"><div class="l"><span></span><b>${x.v}</b></div><div class="tr"><div style="width:${Math.max(4, (x.v / mx) * 100)}%"></div></div></div>`).join("") + "</div>";
+          $("chScans").querySelectorAll(".r .l span").forEach((e, i) => (e.textContent = top[i].n));
+        } else $("chScans").innerHTML = `<p class="none">${L("لسه مفيش مسحات متسجلة.", "No scans recorded yet.")}</p>`;
+        // 3) آخر 6 شهور
+        const now = new Date(), ms = [];
+        for (let i = 5; i >= 0; i--) { const d = new Date(now.getFullYear(), now.getMonth() - i, 1); ms.push({ y: d.getFullYear(), m: d.getMonth(), v: 0, l: d.toLocaleDateString(lang === "en" ? "en-GB" : "ar-EG", { month: "short" }) }); }
+        a.forEach((x) => { const d = new Date(x.ts); const t = ms.find((q) => q.y === d.getFullYear() && q.m === d.getMonth()); if (t) t.v++; });
+        const mx2 = Math.max(1, ...ms.map((q) => q.v));
+        $("chMonth").innerHTML = '<div class="vb">' + ms.map((q) => `<div class="c"><b>${q.v || ""}</b><div style="height:${(q.v / mx2) * 100}%"></div><small>${q.l}</small></div>`).join("") + "</div>";
+      }
       function renderHome() {
+        $("hsLock").hidden = unlocked;
+        $("hsData").hidden = !unlocked;
+        if (!unlocked) return;
         const a = gl(), dy = a.filter((x) => x.dyn);
         const sc = dy.reduce((n, x) => n + (+HITS[x.dyn] || 0), 0);
         const top = dy.filter((x) => +HITS[x.dyn] > 0).sort((x, y) => HITS[y.dyn] - HITS[x.dyn])[0];
@@ -2747,6 +2860,7 @@
         $("hsScans").textContent = sc;
         $("hsTop").textContent = top ? top.name || tr(TYPES[top.type].name) : "—";
         $("hsTopN").textContent = L("الأكتر مسحًا", "Most scanned") + (top ? " · " + HITS[top.dyn] : "");
+        chRender();
         const box = $("hsRecent");
         box.innerHTML = "";
         if (!a.length) {
@@ -2778,15 +2892,15 @@
         $("dynExpBox").hidden = !$("dynChk").checked;
       });
       $("dynExp").min = new Date().toISOString().slice(0, 10);
-      const PAGES = ["home", "create", "lib", "read", "drive", "set"];
+      const PAGES = ["home", "create", "lib", "read", "drive"];
       function go(p) {
-        if ((p === "home" || p === "lib" || p === "drive") && !unlocked) return gate(() => go(p));
+        if ((p === "lib" || p === "drive") && !unlocked) return gate(() => go(p));
         PAGES.forEach((k) => $("pg" + k[0].toUpperCase() + k.slice(1)).classList.toggle("on", k === p));
         document.querySelectorAll(".nv").forEach((b) => b.classList.toggle("on", b.dataset.p === p));
         document.body.classList.remove("menu");
         if (unlocked) document.querySelectorAll(".lk2").forEach((e) => (e.hidden = true));
         if (p === "lib") { renderLib(); syncLib(); }
-        if (p === "home") { renderHome(); syncLib(); }
+        if (p === "home") { renderHome(); if (unlocked) syncLib(); }
         scrollTo({ top: 0 });
       }
       document.querySelectorAll(".nv").forEach((b) => (b.onclick = () => go(b.dataset.p)));
@@ -2874,6 +2988,24 @@
         const b = $("rdCopy"), o = b.textContent;
         b.textContent = L("اتنسخ ✓", "Copied ✓");
         setTimeout(() => (b.textContent = o), 1400);
+      };
+      // ===== الرئيسية / إغلاق المكتبة / تفريغ الحقول =====
+      $("hmLogo").src = document.querySelector("#pgCreate .logo").src;
+      document.querySelectorAll("[data-go]").forEach((b) => (b.onclick = () => go(b.dataset.go)));
+      $("hsUnlock").onclick = () => gate(() => { renderHome(); syncLib(); });
+      $("libClose").onclick = () => go("home");
+      $("clrBtn").onclick = () => {
+        renderFields();
+        $("qname").value = "";
+        $("dynChk").checked = false;
+        $("dynExp").value = "";
+        $("dynExpBox").hidden = true;
+        dynId = null;
+        dynSaved = false;
+        dmsg("");
+        update();
+        const f = $("fields").querySelector("input:not([type=file]),textarea");
+        if (f) f.focus();
       };
       applyLang();
     </script>
