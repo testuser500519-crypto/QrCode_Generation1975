@@ -865,9 +865,6 @@
       .feat .ic{font-size:1.8rem;line-height:1}
       .feat b{font-size:1.05rem}
       .feat span.d{color:var(--muted);font-size:.9rem}
-      #hsLock{text-align:center;padding:34px 12px;border:1.5px dashed var(--line);border-radius:18px;background:var(--soft)}
-      #hsLock .up{width:auto;margin:14px 0 0;padding:11px 26px}
-      #hsLock[hidden],#hsData[hidden]{display:none}
       .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin:0 0 26px}
       .ch{padding:18px;border-radius:18px;border:1px solid var(--line);background:var(--soft);min-width:0}
       .ch h3{margin:0 0 14px!important;font-size:1rem!important}
@@ -889,21 +886,51 @@
       .vb .c{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:5px;font-size:.78rem;min-width:0}
       .vb .c div{width:100%;max-width:38px;border-radius:8px 8px 3px 3px;background:linear-gradient(180deg,var(--shine),var(--flower));min-height:3px}
       .vb .c small{color:var(--muted)}
+
+      /* ===== v3: أيقونات + توست + حركة ===== */
+      .i{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none;vertical-align:-.2em}
+      .hi{display:inline-flex;align-items:center;justify-content:center;gap:8px}
+      .hi[hidden]{display:none}
+      h2.hi{justify-content:flex-start}
+      .nv .ico{display:inline-flex}
+      .nv .i{width:20px;height:20px}
+      .nv .lk2 .i{width:14px;height:14px}
+      .tb{display:inline-flex;align-items:center;justify-content:center;gap:6px}
+      .tb .i{width:20px;height:20px}
+      .feat .ic{display:inline-flex;width:48px;height:48px;align-items:center;justify-content:center;border-radius:14px;background:var(--soft);color:var(--pylon)}
+      .feat .ic .i{width:26px;height:26px}
+      :root[data-theme="dark"] .feat .ic{color:var(--shine)}
+      #toasts{position:fixed;bottom:22px;inset-inline:0;z-index:100;display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none}
+      .toast{display:inline-flex;align-items:center;gap:8px;padding:11px 18px;border-radius:999px;background:var(--pico);color:#fff;font-size:.92rem;font-weight:500;box-shadow:0 14px 30px -12px rgba(0,0,0,.55);animation:tin .25s ease-out;max-width:90vw}
+      :root[data-theme="dark"] .toast{background:var(--shine);color:#0b1633}
+      .toast .i{width:18px;height:18px;color:#44bd32}
+      :root[data-theme="dark"] .toast .i{color:#0b1633}
+      .toast.out{opacity:0;transform:translateY(8px);transition:opacity .25s,transform .25s}
+      @keyframes tin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+      .dn circle{transition:stroke-dasharray .9s cubic-bezier(.2,.8,.2,1)}
+      .hb .tr div{transition:width .8s cubic-bezier(.2,.8,.2,1)}
+      .vb .c div{transition:height .8s cubic-bezier(.2,.8,.2,1)}
+      #pgHome .feats .feat,#pgHome .stats .st{animation:rise .5s both}
+      #pgHome .feats .feat:nth-child(2){animation-delay:.08s}
+      #pgHome .feats .feat:nth-child(3){animation-delay:.16s}
+      @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
     </style>
   </head>
   <body>
     <canvas id="fx" aria-hidden="true"></canvas>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></symbol><symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 4.7 4.7 1.8-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"/></symbol><symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2z"/><path d="M4 19V5"/><path d="M9 7h6"/></symbol><symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol><symbol id="i-cloud" viewBox="0 0 24 24"><path d="M7 18a4 4 0 0 1-.5-7.97A6 6 0 0 1 18 9.5 4.3 4.3 0 0 1 17.5 18z"/></symbol><symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol><symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.5 0 2-1 1.5-2-.6-1.2.2-2.5 1.6-2.5H17a4 4 0 0 0 4-4C21 6.5 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7.5" r="1"/></symbol><symbol id="i-repeat" viewBox="0 0 24 24"><path d="M17 2l4 4-4 4"/><path d="M3 11V9a3 3 0 0 1 3-3h15"/><path d="M7 22l-4-4 4-4"/><path d="M21 13v2a3 3 0 0 1-3 3H3"/></symbol><symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></symbol><symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 6a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol><symbol id="i-chart" viewBox="0 0 24 24"><path d="M4 20V4"/><path d="M4 20h16"/><rect x="8" y="12" width="3" height="5"/><rect x="13" y="8" width="3" height="9"/></symbol><symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></symbol><symbol id="i-eraser" viewBox="0 0 24 24"><path d="M4 16l9-9a2 2 0 0 1 3 0l3 3a2 2 0 0 1 0 3l-6 6H8z"/><path d="M12 20h8"/><path d="M7 11l6 6"/></symbol><symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><path d="M12 3a14 14 0 0 1 0 18 14 14 0 0 1 0-18"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></symbol><symbol id="i-moon" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4 8 8 0 1 0 20 14.5z"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol></defs></svg>
+    <div id="toasts" role="status" aria-live="polite"></div>
     <button type="button" id="menuBtn" aria-label="Menu">☰</button>
     <div id="scrim"></div>
     <div class="topbar"><button type="button" class="tb" id="langBtn"></button><button type="button" class="tb" id="themeBtn"></button></div>
     <div class="shell">
     <aside class="side" id="side">
       <div class="brand"><span class="acc">الحليوة</span> QR</div>
-      <button type="button" class="nv on" data-p="home"><span>🏠</span><span data-ar="الرئيسية" data-en="Home"></span></button>
-      <button type="button" class="nv" data-p="create"><span>✨</span><span data-ar="إنشاء كود" data-en="Create code"></span></button>
-      <button type="button" class="nv" data-p="lib"><span>📚</span><span data-ar="مكتبتي" data-en="My codes"></span><span class="lk2">🔒</span></button>
-      <button type="button" class="nv" data-p="read"><span>🔍</span><span data-ar="قراءة كود" data-en="Read code"></span></button>
-      <button type="button" class="nv" data-p="drive"><span>☁</span><span data-ar="Drive والشيت" data-en="Drive &amp; Sheet"></span><span class="lk2">🔒</span></button>
+      <button type="button" class="nv on" data-p="home"><span class="ico"><svg class="i" aria-hidden="true"><use href="#i-home"/></svg></span><span data-ar="الرئيسية" data-en="Home"></span></button>
+      <button type="button" class="nv" data-p="create"><span class="ico"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg></span><span data-ar="إنشاء كود" data-en="Create code"></span></button>
+      <button type="button" class="nv" data-p="lib"><span class="ico"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg></span><span data-ar="مكتبتي" data-en="My codes"></span></button>
+      <button type="button" class="nv" data-p="read"><span class="ico"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg></span><span data-ar="قراءة كود" data-en="Read code"></span></button>
+      <button type="button" class="nv" data-p="drive"><span class="ico"><svg class="i" aria-hidden="true"><use href="#i-cloud"/></svg></span><span data-ar="Drive والشيت" data-en="Drive &amp; Sheet"></span><span class="lk2"><svg class="i" aria-hidden="true"><use href="#i-lock"/></svg></span></button>
     </aside>
     <div class="content">
     <section class="page" id="pgCreate">
@@ -934,7 +961,7 @@
       <div class="grid">
         <div class="stack">
           <section class="card">
-            <div class="ph"><h2><b class="n">1</b> <span data-ar="أضف المحتوى" data-en="Add content"></span></h2><button type="button" class="xb" id="clrBtn" data-ar="🧹 تفريغ الحقول" data-en="🧹 Clear fields"></button></div>
+            <div class="ph"><h2><b class="n">1</b> <span data-ar="أضف المحتوى" data-en="Add content"></span></h2><button type="button" class="xb hi" id="clrBtn"><svg class="i" aria-hidden="true"><use href="#i-eraser"/></svg><span data-ar="تفريغ الحقول" data-en="Clear fields"></span></button></div>
             <div id="fields"></div>
             <label for="qname">اسم الكيواركود (اختياري)</label>
             <input
@@ -1109,22 +1136,18 @@
         <p class="tag" data-ar="أنشئ كيواركود احترافي مجاناً" data-en="Create a professional QR code for free"></p>
         <p class="sub" data-ar="رابط، صورة، فيديو، PDF، واتساب، سوشيال ميديا وأكتر. التوليد بيتم في متصفحك وبدون حد." data-en="Links, images, video, PDF, WhatsApp, social media and more. Generated in your browser, with no limits."></p>
         <div class="cta">
-          <button type="button" class="up" data-go="create" data-ar="✨ ابدأ إنشاء كود" data-en="✨ Create a code"></button>
-          <button type="button" class="up sec" data-go="read" data-ar="🔍 اقرأ كود" data-en="🔍 Read a code"></button>
+          <button type="button" class="up hi" data-go="create"><svg class="i" aria-hidden="true"><use href="#i-spark"/></svg><span data-ar="ابدأ إنشاء كود" data-en="Create a code"></span></button>
+          <button type="button" class="up sec hi" data-go="read"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span data-ar="اقرأ كود" data-en="Read a code"></span></button>
         </div>
       </header>
       <div class="feats">
-        <button type="button" class="feat" data-go="create"><span class="ic">🎨</span><b data-ar="تصميم على مزاجك" data-en="Designed your way"></b><span class="d" data-ar="ألوان وأشكال نقاط وإطارات ولوجو بتاعك." data-en="Colors, dot styles, frames and your own logo."></span></button>
-        <button type="button" class="feat" data-go="create"><span class="ic">🔁</span><b data-ar="كود ديناميكي" data-en="Dynamic codes"></b><span class="d" data-ar="غيّر الرابط بعد الطباعة وتابع عدد مرات المسح." data-en="Change the link after printing and track scans."></span></button>
-        <button type="button" class="feat" data-go="read"><span class="ic">🛡</span><b data-ar="قراءة وفحص" data-en="Read &amp; check"></b><span class="d" data-ar="اقرأ أي كود واعرف لو الرابط مشبوه." data-en="Decode any code and spot suspicious links."></span></button>
+        <button type="button" class="feat" data-go="create"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-palette"/></svg></span><b data-ar="تصميم على مزاجك" data-en="Designed your way"></b><span class="d" data-ar="ألوان وأشكال نقاط وإطارات ولوجو بتاعك." data-en="Colors, dot styles, frames and your own logo."></span></button>
+        <button type="button" class="feat" data-go="create"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-repeat"/></svg></span><b data-ar="كود ديناميكي" data-en="Dynamic codes"></b><span class="d" data-ar="غيّر الرابط بعد الطباعة وتابع عدد مرات المسح." data-en="Change the link after printing and track scans."></span></button>
+        <button type="button" class="feat" data-go="read"><span class="ic"><svg class="i" aria-hidden="true"><use href="#i-shield"/></svg></span><b data-ar="قراءة وفحص" data-en="Read &amp; check"></b><span class="d" data-ar="اقرأ أي كود واعرف لو الرابط مشبوه." data-en="Decode any code and spot suspicious links."></span></button>
       </div>
       <div class="card">
-        <div class="ph"><h2 data-ar="📊 لوحة الأرقام والرسوم" data-en="📊 Dashboard & charts"></h2></div>
-        <div id="hsLock" hidden>
-          <p class="hint" data-ar="الإحصائيات والرسوم البيانية محمية بكلمة السر." data-en="Stats and charts are password-protected."></p>
-          <button type="button" class="up" id="hsUnlock" data-ar="🔒 افتح اللوحة" data-en="🔒 Unlock dashboard"></button>
-        </div>
-        <div id="hsData" hidden>
+        <div class="ph"><h2 class="hi"><svg class="i" aria-hidden="true"><use href="#i-chart"/></svg><span data-ar="لوحة الأرقام والرسوم" data-en="Dashboard & charts"></span></h2></div>
+        <div id="hsData">
           <div class="stats">
             <div class="st"><b id="hsTotal">0</b><span data-ar="إجمالي الأكواد" data-en="Total codes"></span></div>
             <div class="st"><b id="hsDyn">0</b><span data-ar="أكواد ديناميكية" data-en="Dynamic codes"></span></div>
@@ -1142,7 +1165,7 @@
       </div>
     </div></section>
     <section class="page" id="pgLib"><div class="pg"><div class="card">
-      <div class="ph"><h2 data-ar="📚 مكتبتي" data-en="📚 My QR codes"></h2><button type="button" class="xb" id="libClose" data-ar="✕ إغلاق" data-en="✕ Close"></button></div>
+      <div class="ph"><h2 class="hi"><svg class="i" aria-hidden="true"><use href="#i-book"/></svg><span data-ar="مكتبتي" data-en="My QR codes"></span></h2><button type="button" class="xb hi" id="libClose"><svg class="i" aria-hidden="true"><use href="#i-close"/></svg><span data-ar="إغلاق" data-en="Close"></span></button></div>
       <p class="hint" id="libN"></p>
       <div class="lt">
         <input id="libS" type="search" dir="auto" />
@@ -1152,7 +1175,7 @@
       <div id="libL"></div>
     </div></div></section>
     <section class="page" id="pgRead"><div class="pg"><div class="card">
-      <h2 data-ar="🔍 قراءة كيواركود" data-en="🔍 Read a QR code"></h2>
+      <h2 class="hi"><svg class="i" aria-hidden="true"><use href="#i-search"/></svg><span data-ar="قراءة كيواركود" data-en="Read a QR code"></span></h2>
       <p class="hint" data-ar="ارفع صورة كيواركود أو اسحبها هنا أو الصقها (Ctrl+V). القراءة بتتم في متصفحك." data-en="Upload a QR image, drag it here or paste it (Ctrl+V). Decoding happens in your browser."></p>
       <div class="drop" id="drop" tabindex="0" role="button">
         <div class="big">🖼</div>
@@ -1173,10 +1196,10 @@
       </div>
     </div></div></section>
     <section class="page" id="pgDrive"><div class="pg"><div class="card">
-      <h2 data-ar="☁ Drive والشيت" data-en="☁ Drive &amp; Sheet"></h2>
+      <h2 class="hi"><svg class="i" aria-hidden="true"><use href="#i-cloud"/></svg><span data-ar="Drive والشيت" data-en="Drive &amp; Sheet"></span></h2>
       <div class="lnks">
-        <div class="card"><h2 data-ar="📁 فولدر الأكواد" data-en="📁 Codes folder"></h2><p class="hint" data-ar="صور الأكواد المحفوظة على Drive." data-en="Saved QR images on Drive."></p><button type="button" class="up" id="drvGo" data-ar="افتح Drive" data-en="Open Drive"></button></div>
-        <div class="card"><h2 data-ar="📊 سجل الشيت" data-en="📊 Sheet log"></h2><p class="hint" data-ar="سجل الأكواد وعدد مرات المسح." data-en="Code log and scan counts."></p><button type="button" class="up" id="shGo" data-ar="افتح الشيت" data-en="Open Sheet"></button></div>
+        <div class="card"><h2 class="hi"><svg class="i" aria-hidden="true"><use href="#i-folder"/></svg><span data-ar="فولدر الأكواد" data-en="Codes folder"></span></h2><p class="hint" data-ar="صور الأكواد المحفوظة على Drive." data-en="Saved QR images on Drive."></p><button type="button" class="up" id="drvGo" data-ar="افتح Drive" data-en="Open Drive"></button></div>
+        <div class="card"><h2 class="hi"><svg class="i" aria-hidden="true"><use href="#i-chart"/></svg><span data-ar="سجل الشيت" data-en="Sheet log"></span></h2><p class="hint" data-ar="سجل الأكواد وعدد مرات المسح." data-en="Code log and scan counts."></p><button type="button" class="up" id="shGo" data-ar="افتح الشيت" data-en="Open Sheet"></button></div>
       </div>
     </div></div></section>
     
@@ -1691,6 +1714,7 @@
         if (!(await beforeSave())) return;
         await download();
         saveLib();
+        toast(L("اتجهّز الكود وبيتحمّل", "Your code is ready"));
       };
       ["corn", "lvl", "frame", "fcol", "ftxt"].forEach((i) =>
         $(i).addEventListener("input", update),
@@ -2285,7 +2309,7 @@
         const ft = $("ftxt");
         if (ft.value === L("Scan me", "امسحني"))
           ft.value = L("امسحني", "Scan me");
-        $("langBtn").textContent = L("🌐 EN", "🌐 ع");
+        $("langBtn").innerHTML = IC_("globe") + "<span>" + L("EN", "ع") + "</span>";
         $("langBtn").title = $("langBtn").ariaLabel = L("Switch to English", "التبديل للعربية");
         themeLabel();
         renderHome();
@@ -2305,7 +2329,7 @@
       const root = document.documentElement;
       function themeLabel() {
         const d = root.dataset.theme === "dark";
-        $("themeBtn").textContent = d ? "☀" : "☾";
+        $("themeBtn").innerHTML = IC_(d ? "sun" : "moon");
         $("themeBtn").title = $("themeBtn").ariaLabel = d
           ? L("الوضع الفاتح", "Light mode")
           : L("الوضع الداكن", "Dark mode");
@@ -2770,7 +2794,7 @@
           ["st", L("ثابت فقط", "Static only")],
         ].map((o) => `<option value="${o[0]}">${o[1]}</option>`).join("");
         $("libF").value = fv;
-        $("pwT").textContent = L("🔒 كلمة السر", "🔒 Password");
+        $("pwT").textContent = L("كلمة السر", "Password");
         $("pwN").textContent = L("اكتب كلمة السر للمتابعة.", "Enter the password to continue.");
         $("pwOk").textContent = L("دخول", "Enter");
         $("pwNo").textContent = L("إلغاء", "Cancel");
@@ -2785,6 +2809,7 @@
       function pwTry() {
         if ($("pwI").value.trim() === DYN_TOKEN) {
           unlocked = true;
+          toast(L("اتفتحت اللوحة", "Unlocked"), "lock");
           $("pw").close();
           const f = pwCb;
           pwCb = null;
@@ -2813,17 +2838,41 @@
       $("pwI").addEventListener("keydown", (e) => {
         if (e.key === "Enter") pwTry();
       });
+
+      const IC_ = (n) => `<svg class="i" aria-hidden="true"><use href="#i-${n}"/></svg>`;
+      function toast(msg, icon = "check") {
+        const t = document.createElement("div");
+        t.className = "toast";
+        t.innerHTML = IC_(icon) + "<span></span>";
+        t.lastChild.textContent = msg;
+        $("toasts").appendChild(t);
+        setTimeout(() => { t.classList.add("out"); setTimeout(() => t.remove(), 300); }, 2200);
+      }
+      const REDUCE = matchMedia("(prefers-reduced-motion:reduce)").matches;
+      function countUp(el, to) {
+        to = +to || 0;
+        if (REDUCE || to === 0) { el.textContent = to; return; }
+        const t0 = performance.now(), D = 900;
+        const step = (t) => {
+          const k = Math.min(1, (t - t0) / D), e = 1 - Math.pow(1 - k, 3);
+          el.textContent = Math.round(to * e);
+          if (k < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+      }
+      const after2 = (f) => requestAnimationFrame(() => requestAnimationFrame(f));
       const CPAL = ["#00a8ff", "#9c88ff", "#fbc531", "#44bd32", "#e84118", "#7f8fa6"];
       function chDonut(box, data, total) {
         const R = 46, C = 2 * Math.PI * R;
         let off = 0, arcs = "";
         data.forEach((d, i) => {
           const len = (d.v / total) * C;
-          arcs += `<circle cx="60" cy="60" r="${R}" fill="none" stroke="${CPAL[i % CPAL.length]}" stroke-width="20" stroke-dasharray="${len} ${C - len}" stroke-dashoffset="${-off}"/>`;
+          arcs += `<circle cx="60" cy="60" r="${R}" fill="none" stroke="${CPAL[i % CPAL.length]}" stroke-width="20" stroke-dasharray="0 ${C}" data-d="${len} ${C - len}" stroke-dashoffset="${-off}"/>`;
           off += len;
         });
         const lg = data.map((d, i) => `<div><i style="background:${CPAL[i % CPAL.length]}"></i>${d.l} · <b>${d.v}</b></div>`).join("");
         box.innerHTML = `<div class="dn"><svg viewBox="0 0 120 120" role="img"><circle cx="60" cy="60" r="${R}" fill="none" stroke="var(--line)" stroke-width="20"/>${arcs}<text class="ctr" x="60" y="68" text-anchor="middle">${total}</text></svg><div class="lg">${lg}</div></div>`;
+        after2(() => box.querySelectorAll("circle[data-d]").forEach((c) => c.setAttribute("stroke-dasharray", c.dataset.d)));
       }
       function chRender() {
         const a = gl(), dy = a.filter((x) => x.dyn);
@@ -2838,7 +2887,8 @@
         const top = dy.map((x) => ({ n: x.name || tr(TYPES[x.type].name), v: +HITS[x.dyn] || 0 })).filter((x) => x.v > 0).sort((x, y) => y.v - x.v).slice(0, 5);
         if (top.length) {
           const mx = top[0].v;
-          $("chScans").innerHTML = '<div class="hb">' + top.map((x) => `<div class="r"><div class="l"><span></span><b>${x.v}</b></div><div class="tr"><div style="width:${Math.max(4, (x.v / mx) * 100)}%"></div></div></div>`).join("") + "</div>";
+          $("chScans").innerHTML = '<div class="hb">' + top.map((x) => `<div class="r"><div class="l"><span></span><b>${x.v}</b></div><div class="tr"><div style="width:0" data-w="${Math.max(4, (x.v / mx) * 100)}"></div></div></div>`).join("") + "</div>";
+          after2(() => $("chScans").querySelectorAll("[data-w]").forEach((e) => (e.style.width = e.dataset.w + "%")));
           $("chScans").querySelectorAll(".r .l span").forEach((e, i) => (e.textContent = top[i].n));
         } else $("chScans").innerHTML = `<p class="none">${L("لسه مفيش مسحات متسجلة.", "No scans recorded yet.")}</p>`;
         // 3) آخر 6 شهور
@@ -2846,18 +2896,16 @@
         for (let i = 5; i >= 0; i--) { const d = new Date(now.getFullYear(), now.getMonth() - i, 1); ms.push({ y: d.getFullYear(), m: d.getMonth(), v: 0, l: d.toLocaleDateString(lang === "en" ? "en-GB" : "ar-EG", { month: "short" }) }); }
         a.forEach((x) => { const d = new Date(x.ts); const t = ms.find((q) => q.y === d.getFullYear() && q.m === d.getMonth()); if (t) t.v++; });
         const mx2 = Math.max(1, ...ms.map((q) => q.v));
-        $("chMonth").innerHTML = '<div class="vb">' + ms.map((q) => `<div class="c"><b>${q.v || ""}</b><div style="height:${(q.v / mx2) * 100}%"></div><small>${q.l}</small></div>`).join("") + "</div>";
+        $("chMonth").innerHTML = '<div class="vb">' + ms.map((q) => `<div class="c"><b>${q.v || ""}</b><div style="height:0" data-h="${(q.v / mx2) * 100}"></div><small>${q.l}</small></div>`).join("") + "</div>";
+        after2(() => $("chMonth").querySelectorAll("[data-h]").forEach((e) => (e.style.height = e.dataset.h + "%")));
       }
       function renderHome() {
-        $("hsLock").hidden = unlocked;
-        $("hsData").hidden = !unlocked;
-        if (!unlocked) return;
         const a = gl(), dy = a.filter((x) => x.dyn);
         const sc = dy.reduce((n, x) => n + (+HITS[x.dyn] || 0), 0);
         const top = dy.filter((x) => +HITS[x.dyn] > 0).sort((x, y) => HITS[y.dyn] - HITS[x.dyn])[0];
-        $("hsTotal").textContent = a.length;
-        $("hsDyn").textContent = dy.length;
-        $("hsScans").textContent = sc;
+        countUp($("hsTotal"), a.length);
+        countUp($("hsDyn"), dy.length);
+        countUp($("hsScans"), sc);
         $("hsTop").textContent = top ? top.name || tr(TYPES[top.type].name) : "—";
         $("hsTopN").textContent = L("الأكتر مسحًا", "Most scanned") + (top ? " · " + HITS[top.dyn] : "");
         chRender();
@@ -2894,13 +2942,13 @@
       $("dynExp").min = new Date().toISOString().slice(0, 10);
       const PAGES = ["home", "create", "lib", "read", "drive"];
       function go(p) {
-        if ((p === "lib" || p === "drive") && !unlocked) return gate(() => go(p));
+        if (p === "drive" && !unlocked) return gate(() => go(p));
         PAGES.forEach((k) => $("pg" + k[0].toUpperCase() + k.slice(1)).classList.toggle("on", k === p));
         document.querySelectorAll(".nv").forEach((b) => b.classList.toggle("on", b.dataset.p === p));
         document.body.classList.remove("menu");
         if (unlocked) document.querySelectorAll(".lk2").forEach((e) => (e.hidden = true));
         if (p === "lib") { renderLib(); syncLib(); }
-        if (p === "home") { renderHome(); if (unlocked) syncLib(); }
+        if (p === "home") { renderHome(); syncLib(); }
         scrollTo({ top: 0 });
       }
       document.querySelectorAll(".nv").forEach((b) => (b.onclick = () => go(b.dataset.p)));
@@ -2985,14 +3033,11 @@
         try { await navigator.clipboard.writeText(t); } catch (e) {
           const a = document.createElement("textarea"); a.value = t; document.body.appendChild(a); a.select(); document.execCommand("copy"); a.remove();
         }
-        const b = $("rdCopy"), o = b.textContent;
-        b.textContent = L("اتنسخ ✓", "Copied ✓");
-        setTimeout(() => (b.textContent = o), 1400);
+        toast(L("اتنسخ النص", "Copied to clipboard"));
       };
       // ===== الرئيسية / إغلاق المكتبة / تفريغ الحقول =====
       $("hmLogo").src = document.querySelector("#pgCreate .logo").src;
       document.querySelectorAll("[data-go]").forEach((b) => (b.onclick = () => go(b.dataset.go)));
-      $("hsUnlock").onclick = () => gate(() => { renderHome(); syncLib(); });
       $("libClose").onclick = () => go("home");
       $("clrBtn").onclick = () => {
         renderFields();
@@ -3004,10 +3049,12 @@
         dynSaved = false;
         dmsg("");
         update();
+        toast(L("اتفرّغت الحقول", "Fields cleared"), "eraser");
         const f = $("fields").querySelector("input:not([type=file]),textarea");
         if (f) f.focus();
       };
       applyLang();
+      syncLib();
     </script>
   </body>
 </html>
