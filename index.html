@@ -986,7 +986,8 @@
           class="lc"
           id="libC"
         ></span
-        ><button type="button" class="lb" id="libDrv"></button>
+        ><button type="button" class="lb" id="libDrv"></button
+        ><button type="button" class="lb" id="libSh"></button>
       </div>
       <div id="libL"></div>
     </dialog>
@@ -2135,6 +2136,11 @@
       // الصق هنا رابط الـ Web App الخاص بملف redirect-Code.gs وكلمة السر (نفس TOKEN)
       const DYN_URL = "https://script.google.com/macros/s/AKfycbwA3heVLcWGO_cby0hE7fV2NJITzDYeZ05BiVqFMhH5Sdr-x5qF4Tl5oh7iyqrq9M8P/exec";
       const DYN_TOKEN = "500519";
+      // روابط جاهزة: فولدر Drive بتاع البرنامج + الشيت (الصق رابط الشيت هنا لو عايزه يفتح فورًا)
+      const DRIVE_URL =
+        "https://drive.google.com/drive/folders/1NxpsPbqhjZJhHrc6nq1_dX5MCq1m1UQn";
+      const SHEET_URL =
+        "https://docs.google.com/spreadsheets/d/16Ni7ajIJcjU53kd57nSrc-4-FmnnyP-ztATKnW7m4Jw/edit?gid=157971957#gid=157971957";
       let dynId = null,
         dynSaved = false;
       const LIBK = "qrlib",
@@ -2520,6 +2526,7 @@
           "Search by name or link...",
         );
         $("libDrv").textContent = L("☁ افتح Drive", "☁ Open Drive");
+        $("libSh").textContent = L("📊 افتح الشيت", "📊 Open Sheet");
         $("pwT").textContent = L("🔒 كلمة السر", "🔒 Password");
         $("pwN").textContent = L(
           "اكتب كلمة السر للمتابعة.",
@@ -2529,7 +2536,6 @@
         $("pwNo").textContent = L("إلغاء", "Cancel");
       }
       function gate(cb) {
-        if (unlocked) return cb();
         pwCb = cb;
         $("pwI").value = "";
         $("pwE").hidden = true;
@@ -2550,16 +2556,17 @@
         }
       }
       function openDrive() {
-        const D = "https://drive.google.com/drive/my-drive",
-          w = window.open("about:blank", "_blank"),
-          go = (u) => {
-            if (w) w.location.href = u;
-            else location.href = u;
-          };
-        if (!DYN_URL) return go(D);
+        window.open(DRIVE_URL, "_blank", "noopener");
+      }
+      function openSheet() {
+        if (SHEET_URL) return window.open(SHEET_URL, "_blank", "noopener");
+        const w = window.open("about:blank", "_blank");
         dynSend("list")
-          .then((j) => go(j.folder || D))
-          .catch(() => go(D));
+          .then((j) => {
+            if (w) w.location.href = j.sheet;
+            else location.href = j.sheet;
+          })
+          .catch(() => w && w.close());
       }
       $("pwOk").onclick = pwTry;
       $("pwNo").onclick = () => $("pw").close();
@@ -2575,6 +2582,7 @@
         });
       $("drvBtn").onclick = () => gate(openDrive);
       $("libDrv").onclick = openDrive;
+      $("libSh").onclick = openSheet;
       $("libS").addEventListener("input", renderLib);
       $("libX").onclick = () => $("lib").close();
       $("lib").addEventListener("click", (e) => {
